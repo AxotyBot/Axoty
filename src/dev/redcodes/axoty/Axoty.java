@@ -4,17 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 import javax.security.auth.login.LoginException;
 
+import dev.redcodes.axoty.handler.CommandHandler;
 import dev.redcodes.axoty.token.DONOTOPEN;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
@@ -30,9 +34,7 @@ public class Axoty {
 
 	public static String year = "2021";
 
-	public static String icon = "";
-
-	public static String prefix = "a!";
+	public static String icon = "https://i.imgur.com/O74dUFG.jpg";
 
 	public static Instant online = Instant.now();
 
@@ -46,7 +48,6 @@ public class Axoty {
 
 	public Axoty() throws LoginException, IllegalArgumentException {
 
-
 		String token = null;
 		if (Dev) {
 			token = DONOTOPEN.getDevToken();
@@ -59,7 +60,13 @@ public class Axoty {
 		builder.setActivity(Activity.watching("Bot starting..."));
 		builder.setStatus(OnlineStatus.IDLE);
 
-		builder.setEnabledIntents(GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS));
+		builder.addEventListeners(new CommandHandler());
+
+		List<GatewayIntent> intents = new ArrayList<GatewayIntent>();
+		intents.addAll(GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS));
+		intents.remove(GatewayIntent.GUILD_PRESENCES);
+
+		builder.setEnabledIntents(intents);
 		builder.setMemberCachePolicy(MemberCachePolicy.ALL);
 
 		jda = builder.build();
@@ -127,12 +134,24 @@ public class Axoty {
 	}
 
 	int next = 7;
-	String[] status = new String[] { "%prefix%help", "%members% User", "%version%"
+	boolean commandCheck = true;
+	String[] status = new String[] { "axolotl groans", "%members% User", "%version%"
 
 	};
 
 	public void onSecond() {
 		if (next <= 0) {
+
+			if (commandCheck) {
+				commandCheck = false;
+
+				List<CommandData> cmds = new ArrayList<CommandData>();
+				cmds.add(new CommandData("axolotl", "Gives you a random Axolotl Picture."));
+
+				jda.getGuildById(580732235313971211l).updateCommands().addCommands(cmds).queue();
+				System.out.println("Commands published!");
+			}
+
 			Random rand = new Random();
 			int i = rand.nextInt(status.length);
 
@@ -143,15 +162,15 @@ public class Axoty {
 			}
 
 			String text = status[i].replace("%members%", String.valueOf(users)).replace("%version%", Version)
-					.replace("%prefix%", prefix).replace("%guilds%", String.valueOf(jda.getGuilds().size()));
+					.replace("%guilds%", String.valueOf(jda.getGuilds().size()));
 
 			if (!jda.getPresence().getActivity().getName().equals(text)) {
 
 				if (!Dev) {
 					jda.getPresence().setStatus(OnlineStatus.ONLINE);
-					if (text.contains("help")) {
+					if (text.contains("axolotl")) {
 						jda.getPresence().setActivity(Activity.listening(text));
-					} else if (text.contains("User") || text.contains("Guilds")) {
+					} else if (text.contains("User") || text.contains("Guilds") || text.contains("axolotl")) {
 						jda.getPresence().setActivity(Activity.watching(text));
 					} else {
 						jda.getPresence().setActivity(Activity.playing(text));
