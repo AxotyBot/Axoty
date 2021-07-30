@@ -7,13 +7,13 @@ import dev.redcodes.axoty.Axoty;
 import dev.redcodes.axoty.api.AxolotlFact;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Emoji;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.Button;
 
-public class FactCommand {
+public class FactButton {
 
-	public static void onCommand(SlashCommandEvent e) {
+	public static void onButtonClick(ButtonClickEvent e) {
 
 		e.deferReply().queue();
 
@@ -36,5 +36,5 @@ public class FactCommand {
 		e.getHook().editOriginalEmbeds(msg.build()).setActionRows(rows).queue();
 
 	}
-
+	
 }

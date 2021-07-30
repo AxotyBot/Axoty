@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.redcodes.axoty.Axoty;
+import dev.redcodes.axoty.api.AxolotlFact;
 import dev.redcodes.axoty.api.AxolotlImage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Emoji;
@@ -17,26 +18,49 @@ public class AxolotlCommand {
 
 		e.deferReply().queue();
 
-		AxolotlImage img = new AxolotlImage();
+		if (e.getOption("type").getAsString().equalsIgnoreCase("img")) {
 
-		EmbedBuilder msg = new EmbedBuilder();
-		msg.setTitle("Axolotl!");
-		msg.setImage(img.getUrl().toString());
-		msg.setFooter("© Axoty " + Axoty.year, Axoty.icon);
-		msg.setColor(0x33cc33);
-		
-		List<ActionRow> rows = new ArrayList<ActionRow>();
-		List<Button> buttons = new ArrayList<Button>();
-		
-		buttons.add(Button.success("img", "Get another Image").withEmoji(Emoji.fromUnicode("🖼")));
-		buttons.add(Button.success("fact", "Get a fact").withEmoji(Emoji.fromUnicode("📰")));
-		
-		rows.add(ActionRow.of(buttons));
-		rows.add(ActionRow.of(Button.link(img.getUrl().toString(), "Source").withEmoji(Emoji.fromUnicode("🌐"))));
+			AxolotlImage img = new AxolotlImage();
 
-		e.getHook().editOriginalEmbeds(msg.build())
-				.setActionRows(rows)
-				.queue();
+			EmbedBuilder msg = new EmbedBuilder();
+			msg.setTitle("Axolotl!");
+			msg.setImage(img.getUrl().toString());
+			msg.setFooter("© Axoty " + Axoty.year, Axoty.icon);
+			msg.setColor(0x33cc33);
+
+			List<ActionRow> rows = new ArrayList<ActionRow>();
+			List<Button> buttons = new ArrayList<Button>();
+
+			buttons.add(Button.success("img", "Get another Image").withEmoji(Emoji.fromUnicode("🖼")));
+			buttons.add(Button.success("fact", "Get a fact").withEmoji(Emoji.fromUnicode("📰")));
+
+			rows.add(ActionRow.of(buttons));
+			rows.add(ActionRow.of(Button.link(img.getUrl().toString(), "Source").withEmoji(Emoji.fromUnicode("🌐"))));
+
+			e.getHook().editOriginalEmbeds(msg.build()).setActionRows(rows).queue();
+
+		} else if(e.getOption("type").getAsString().equalsIgnoreCase("fact")) {
+			
+			AxolotlFact fact = new AxolotlFact();
+
+			EmbedBuilder msg = new EmbedBuilder();
+			msg.setTitle("Axolotl!");
+			msg.setDescription(fact.getFact());
+			msg.setFooter("© Axoty " + Axoty.year, Axoty.icon);
+			msg.setColor(0x33cc33);
+
+			List<ActionRow> rows = new ArrayList<ActionRow>();
+			List<Button> buttons = new ArrayList<Button>();
+
+			
+			buttons.add(Button.success("fact", "Get another fact").withEmoji(Emoji.fromUnicode("📰")));
+			buttons.add(Button.success("img", "Get a Image").withEmoji(Emoji.fromUnicode("🖼")));
+
+			rows.add(ActionRow.of(buttons));
+
+			e.getHook().editOriginalEmbeds(msg.build()).setActionRows(rows).queue();
+			
+		}
 
 	}
 

@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javax.security.auth.login.LoginException;
 
+import dev.redcodes.axoty.handler.ButtonHandler;
 import dev.redcodes.axoty.handler.CommandHandler;
 import dev.redcodes.axoty.token.DONOTOPEN;
 import net.dv8tion.jda.api.JDA;
@@ -63,6 +64,7 @@ public class Axoty {
 		builder.setStatus(OnlineStatus.IDLE);
 
 		builder.addEventListeners(new CommandHandler());
+		builder.addEventListeners(new ButtonHandler());
 
 		List<GatewayIntent> intents = new ArrayList<GatewayIntent>();
 		intents.addAll(GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS));
@@ -151,6 +153,8 @@ public class Axoty {
 				cmds.add(new CommandData("axolotl", "Gives you a random Axolotl picture or Axolotl fact.")
 						.addOptions(new OptionData(OptionType.STRING, "type", "Select a entry from the list above.", true).addChoice("image", "img")
 								.addChoice("fact", "fact")));
+				cmds.add(new CommandData("image", "Gives you a random Axolotl picture."));
+				cmds.add(new CommandData("fact", "Gives you a random Axolotl fact."));
 
 				jda.getGuildById(580732235313971211l).updateCommands().addCommands(cmds).queue();
 				System.out.println("Commands published!");
