@@ -18,7 +18,9 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
@@ -146,7 +148,9 @@ public class Axoty {
 				commandCheck = false;
 
 				List<CommandData> cmds = new ArrayList<CommandData>();
-				cmds.add(new CommandData("axolotl", "Gives you a random Axolotl Picture."));
+				cmds.add(new CommandData("axolotl", "Gives you a random Axolotl picture or Axolotl fact.")
+						.addOptions(new OptionData(OptionType.STRING, "type", "Select a entry from the list above.", true).addChoice("image", "img")
+								.addChoice("fact", "fact")));
 
 				jda.getGuildById(580732235313971211l).updateCommands().addCommands(cmds).queue();
 				System.out.println("Commands published!");
