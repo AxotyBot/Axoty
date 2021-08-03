@@ -18,7 +18,7 @@ public class FactMessage {
 
 		EmbedBuilder msg = new EmbedBuilder();
 		msg.setTitle("Axolotl!");
-		msg.setDescription(fact.getFact());
+		msg.setDescription(fact.getFact() + "\n\n*Axolotl-Facts provided by [AceKiron#5467](https://github.com/AxolotlAPI/data/blob/main/facts.txt)*");
 		msg.setFooter("© Axoty " + Axoty.year, Axoty.icon);
 		msg.setColor(0x33cc33);
 

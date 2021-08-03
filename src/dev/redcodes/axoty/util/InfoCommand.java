@@ -22,9 +22,11 @@ public class InfoCommand {
 		msg.setTitle("Bot Information");
 		msg.setDescription("*A Bot by <@277048745458401282>*");
 		msg.addField("Version", Axoty.Version, true);
-		msg.addField("JDA Version", "4.3.0_301", true);
+		msg.addField("JDA Version", "4.3.0_304", true);
 		msg.addField("Java Version", System.getProperty("java.version"), true);
-		msg.addField("Online for", days + " Days, " + hours + " Hours, " + minutes + " Minutes, " + seconds + " Seconds", true);
+		msg.addField("Online for", days + " Days, " + hours + " Hours, " + minutes + " Minutes, " + seconds + " Seconds", false);
+		msg.addField("Inspired by", "[Xondalf Discord Bot](https://top.gg/bot/833016200740601909)", false);
+		msg.addField("", "> [**Website**](https://axoty.xyz/) • [**API**](https://api.axoty.xyz/)", false);
 		msg.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
 		msg.setColor(0x33cc33);
 		msg.setFooter("© Axoty " + Axoty.year, Axoty.icon);
