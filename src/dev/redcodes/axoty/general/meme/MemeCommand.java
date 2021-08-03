@@ -1,9 +1,9 @@
-package dev.redcodes.axoty.general.image;
+package dev.redcodes.axoty.general.meme;
 
 import dev.redcodes.axoty.data.users.AxotyUser;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
-public class ImageCommand {
+public class MemeCommand {
 
 	public static void onCommand(SlashCommandEvent e) {
 
@@ -11,9 +11,9 @@ public class ImageCommand {
 
 		AxotyUser user = new AxotyUser(e.getUser());
 
-		e.getHook().editOriginal(ImageMessage.getEmbed().build()).queue();
+		e.getHook().editOriginal(MemeMessage.getEmbed().build()).queue();
 		
-		user.addImagesRequested();
+		user.addMemesRequested();
 
 	}
 

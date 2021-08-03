@@ -1,20 +1,20 @@
-package dev.redcodes.axoty.general.fact;
+package dev.redcodes.axoty.general.meme;
 
 import dev.redcodes.axoty.data.users.AxotyUser;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 
-public class FactButton {
+public class MemeButton {
 
 	public static void onButtonClick(ButtonClickEvent e) {
-
+		
 		e.deferReply().queue();
 		
 		AxotyUser user = new AxotyUser(e.getUser());
 
-		e.getHook().editOriginal(FactMessage.getEmbed().build()).queue();
+		e.getHook().editOriginal(MemeMessage.getEmbed().build()).queue();
 		
-		user.addFactsRequested();
-
+		user.addMemesRequested();
+		
 	}
 	
 }

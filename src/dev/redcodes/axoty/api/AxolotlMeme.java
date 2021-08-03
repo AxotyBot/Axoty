@@ -16,15 +16,15 @@ import com.mongodb.client.model.Filters;
 
 import dev.redcodes.axoty.data.connection.MongoDBHandler;
 
-public class AxolotlImage {
+public class AxolotlMeme {
 
 	URL url;
 	URL sourceUrl;
 	String suggester;
 
-	public AxolotlImage() {
+	public AxolotlMeme() {
 
-		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("images");
+		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("memes");
 		FindIterable<Document> iterable = collection.find();
 		Iterator<Document> iterator = iterable.iterator();
 

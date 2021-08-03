@@ -1,6 +1,7 @@
 package dev.redcodes.axoty;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.Instant;
@@ -11,14 +12,17 @@ import java.util.Random;
 
 import javax.security.auth.login.LoginException;
 
+import dev.redcodes.axoty.data.connection.MongoDBHandler;
 import dev.redcodes.axoty.handler.ButtonHandler;
 import dev.redcodes.axoty.handler.CommandHandler;
+import dev.redcodes.axoty.suggestion.buttons.SuggestionButtonsHandler;
 import dev.redcodes.axoty.token.DONOTOPEN;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -31,7 +35,7 @@ public class Axoty {
 
 	public static JDA jda;
 
-	public static String Version = "Release 1.0";
+	public static String Version = "Pre-Release 1.0";
 
 	public static boolean Dev = false;
 
@@ -65,6 +69,7 @@ public class Axoty {
 
 		builder.addEventListeners(new CommandHandler());
 		builder.addEventListeners(new ButtonHandler());
+		builder.addEventListeners(new SuggestionButtonsHandler());
 
 		List<GatewayIntent> intents = new ArrayList<GatewayIntent>();
 		intents.addAll(GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS));
@@ -80,6 +85,8 @@ public class Axoty {
 
 		shutdown();
 		runLoop();
+
+		MongoDBHandler.connect();
 
 	}
 
@@ -98,6 +105,7 @@ public class Axoty {
 							jda.getPresence().setStatus(OnlineStatus.OFFLINE);
 							jda.shutdown();
 							System.out.println("The Bot is now Offline!");
+							MongoDBHandler.disconnect();
 						}
 						if (loop != null) {
 							loop.interrupt();
@@ -150,11 +158,23 @@ public class Axoty {
 				commandCheck = false;
 
 				List<CommandData> cmds = new ArrayList<CommandData>();
-				cmds.add(new CommandData("axolotl", "Gives you a random Axolotl picture or Axolotl fact.")
-						.addOptions(new OptionData(OptionType.STRING, "type", "Select a entry from the list above.", true).addChoice("image", "img")
-								.addChoice("fact", "fact")));
+				cmds.add(new CommandData("axolotl", "Gives you a random Axolotl picture or Axolotl fact.").addOptions(
+						new OptionData(OptionType.STRING, "type", "Select a entry from the list above.", true)
+								.addChoice("image", "img").addChoice("meme", "meme").addChoice("fact", "fact")));
 				cmds.add(new CommandData("image", "Gives you a random Axolotl picture."));
+				cmds.add(new CommandData("meme", "Gives you a random Axolotl meme."));
 				cmds.add(new CommandData("fact", "Gives you a random Axolotl fact."));
+				cmds.add(new CommandData("user", "Gives you information about a specific User.")
+						.addOptions(new OptionData(OptionType.USER, "user",
+								"Select the user you wan't to get information from", false)));
+				cmds.add(new CommandData("info", "Gives you information about the Bot."));
+				cmds.add(new CommandData("suggest", "Suggest a new Image or Fact for our Bot to show.").addOptions(
+						new OptionData(OptionType.STRING, "type", "The type of content you are suggesting.", true)
+								.addChoice("image", "image").addChoice("meme", "meme")
+//								.addChoice("fact", "fact")
+								,
+						new OptionData(OptionType.STRING, "url", "The direct url of the content.", true),
+						new OptionData(OptionType.STRING, "source-url", "The source URL of the content.", true)));
 
 				jda.getGuildById(580732235313971211l).updateCommands().addCommands(cmds).queue();
 				System.out.println("Commands published!");
@@ -168,7 +188,7 @@ public class Axoty {
 			for (Guild guild : jda.getGuilds()) {
 				users = users + guild.getMemberCount();
 			}
-
+			
 			String text = status[i].replace("%members%", String.valueOf(users)).replace("%version%", Version)
 					.replace("%guilds%", String.valueOf(jda.getGuilds().size()));
 
