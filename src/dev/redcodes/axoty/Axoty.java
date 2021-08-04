@@ -176,7 +176,7 @@ public class Axoty {
 						new OptionData(OptionType.STRING, "url", "The direct url of the content.", true),
 						new OptionData(OptionType.STRING, "source-url", "The source URL of the content.", true)));
 
-				jda.getGuildById(580732235313971211l).updateCommands().addCommands(cmds).queue();
+				jda.getGuildById(580732235313971211L).updateCommands().addCommands(cmds).queue();
 				System.out.println("Commands published!");
 			}
 
