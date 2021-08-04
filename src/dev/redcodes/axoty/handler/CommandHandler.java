@@ -8,7 +8,9 @@ import dev.redcodes.axoty.general.fact.FactCommand;
 import dev.redcodes.axoty.general.image.ImageCommand;
 import dev.redcodes.axoty.general.meme.MemeCommand;
 import dev.redcodes.axoty.suggestion.commands.SuggestCommand;
+import dev.redcodes.axoty.util.ApiCommand;
 import dev.redcodes.axoty.util.InfoCommand;
+import dev.redcodes.axoty.util.SupportCommand;
 
 public class CommandHandler extends ListenerAdapter {
 
@@ -66,6 +68,17 @@ public class CommandHandler extends ListenerAdapter {
 				
 			}).start();
 			break;
+			
+		case "support":
+			new Thread(() -> {
+				SupportCommand.onCommand(e);
+			}).start();
+			break;
+			
+		case "api":
+			new Thread(() -> {
+				ApiCommand.onCommand(e);
+			}).start();
 		
 		
 		default:

@@ -22,7 +22,7 @@ public class AxotyUser {
 
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
 
-		Document doc = collection.find(Filters.eq("_id", this.user.getIdLong())).first();
+		Document doc = collection.find(Filters.eq("_id", this.user.getId())).first();
 
 		if (doc != null) {
 
@@ -32,7 +32,7 @@ public class AxotyUser {
 			this.videosRequested = doc.getInteger("videos");
 
 		} else {
-			doc = new Document("_id", this.user.getIdLong()).append("images", 0).append("facts", 0).append("memes", 0)
+			doc = new Document("_id", this.user.getId()).append("images", 0).append("facts", 0).append("memes", 0)
 					.append("videos", 0);
 			collection.insertOne(doc);
 		}
@@ -46,13 +46,13 @@ public class AxotyUser {
 	public void setMemesRequested(int memesRequested) {
 		this.memesRequested = memesRequested;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
-		collection.updateOne(Filters.eq("_id", this.user.getIdLong()), Updates.set("memes", this.memesRequested));
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("memes", this.memesRequested));
 	}
 
 	public void addMemesRequested() {
 		this.memesRequested++;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
-		collection.updateOne(Filters.eq("_id", this.user.getIdLong()), Updates.set("memes", this.memesRequested));
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("memes", this.memesRequested));
 	}
 
 	public int getVideosRequested() {
@@ -62,13 +62,13 @@ public class AxotyUser {
 	public void setVideosRequested(int videosRequested) {
 		this.videosRequested = videosRequested;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
-		collection.updateOne(Filters.eq("_id", this.user.getIdLong()), Updates.set("videos", this.videosRequested));
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("videos", this.videosRequested));
 	}
 
 	public void addVideosRequested() {
 		this.videosRequested++;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
-		collection.updateOne(Filters.eq("_id", this.user.getIdLong()), Updates.set("videos", this.videosRequested));
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("videos", this.videosRequested));
 	}
 
 	public int getImagesRequested() {
@@ -78,13 +78,13 @@ public class AxotyUser {
 	public void setImagesRequested(int imagesRequested) {
 		this.imagesRequested = imagesRequested;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
-		collection.updateOne(Filters.eq("_id", this.user.getIdLong()), Updates.set("images", this.imagesRequested));
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("images", this.imagesRequested));
 	}
 
 	public void addImagesRequested() {
 		this.imagesRequested++;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
-		collection.updateOne(Filters.eq("_id", this.user.getIdLong()), Updates.set("images", this.imagesRequested));
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("images", this.imagesRequested));
 	}
 
 	public int getFactsRequested() {
@@ -94,13 +94,13 @@ public class AxotyUser {
 	public void setFactsRequested(int factsRequested) {
 		this.factsRequested = factsRequested;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
-		collection.updateOne(Filters.eq("_id", this.user.getIdLong()), Updates.set("facts", this.factsRequested));
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("facts", this.factsRequested));
 	}
 
 	public void addFactsRequested() {
 		this.factsRequested++;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
-		collection.updateOne(Filters.eq("_id", this.user.getIdLong()), Updates.set("facts", this.factsRequested));
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("facts", this.factsRequested));
 	}
 
 	public User getUser() {

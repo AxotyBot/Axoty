@@ -71,7 +71,7 @@ public class AxolotlSuggestion {
 		rows.add(ActionRow.of(buttons1));
 		rows.add(ActionRow.of(buttons2));
 
-		this.user.getJDA().getGuildById(580732235313971211L).getTextChannelById(872120096745730098L)
+		this.user.getJDA().getGuildById(846088733131931688L).getTextChannelById(872419797793640458L)
 				.sendMessageEmbeds(suggestion.build()).setActionRows(rows).queue();
 	}
 
