@@ -109,10 +109,10 @@ public class SuggestionButtonsHandler extends ListenerAdapter {
 										.asDisabled().withEmoji(Emoji.fromUnicode("❌"))))
 								.queue();
 						break;
-
+						
 					case "deny4":
 						suggestion.deny(
-								"Unspecified Reason. Please contact a Teammember if you want more information about this decission.");
+								"The Source URL does not contain source of the content.");
 						EmbedBuilder msg1111 = new EmbedBuilder();
 						msg1111.setTitle("New Suggestion");
 						msg1111.setAuthor(suggestion.getUser().getAsTag(), "https://axoty.xyz",
@@ -127,7 +127,27 @@ public class SuggestionButtonsHandler extends ListenerAdapter {
 						e.getMessage().editMessageEmbeds(msg1111.build())
 								.setActionRows(ActionRow.of(Button
 										.danger("never gonna give you up", "Denied by " + e.getUser().getAsTag())
-										.asDisabled().withEmoji(Emoji.fromUnicode("❌"))));
+										.asDisabled().withEmoji(Emoji.fromUnicode("❌")))).queue();				
+						break;
+
+					case "deny5":
+						suggestion.deny(
+								"Unspecified Reason. Please contact a Teammember if you want more information about this decission.");
+						EmbedBuilder msg11111 = new EmbedBuilder();
+						msg11111.setTitle("New Suggestion");
+						msg11111.setAuthor(suggestion.getUser().getAsTag(), "https://axoty.xyz",
+								suggestion.getUser().getAvatarUrl());
+						msg11111.addField("Type", suggestion.getType().toString(), true);
+						msg11111.addField("URL", suggestion.getUrl().toString(), true);
+						msg11111.addField("Source", suggestion.getSourceUrl().toString(), true);
+						msg11111.setImage(suggestion.getUrl().toString());
+						msg11111.setFooter("© Axoty " + Axoty.year, Axoty.icon);
+						msg11111.setColor(Color.RED);
+
+						e.getMessage().editMessageEmbeds(msg11111.build())
+								.setActionRows(ActionRow.of(Button
+										.danger("never gonna give you up", "Denied by " + e.getUser().getAsTag())
+										.asDisabled().withEmoji(Emoji.fromUnicode("❌")))).queue();
 						break;
 
 					default:

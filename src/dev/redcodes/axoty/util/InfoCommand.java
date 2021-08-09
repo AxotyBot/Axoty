@@ -34,7 +34,7 @@ public class InfoCommand {
 		msg.addField("Content in queue",
 				String.valueOf(MongoDBHandler.getDatabase().getCollection("suggestions").countDocuments()), true);
 		msg.addField("Version", Axoty.Version, true);
-		msg.addField("JDA Version", "4.3.0_304", true);
+		msg.addField("JDA Version", "4.3.0_307", true);
 		msg.addField("Java Version", System.getProperty("java.version"), true);
 		msg.addField("Online for",
 				days + " Days, " + hours + " Hours, " + minutes + " Minutes, " + seconds + " Seconds", false);

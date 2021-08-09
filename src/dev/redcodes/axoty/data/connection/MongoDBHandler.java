@@ -19,7 +19,7 @@ public class MongoDBHandler {
 		MongoDatabase database;
 
 		if (Axoty.Dev) {
-			ConnectionString connString = new ConnectionString(DONOTOPEN.getMongoConnection());
+			ConnectionString connString = new ConnectionString(DONOTOPEN.getDevMongoConnection());
 			MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connString)
 					.retryWrites(true).build();
 			client = MongoClients.create(settings);

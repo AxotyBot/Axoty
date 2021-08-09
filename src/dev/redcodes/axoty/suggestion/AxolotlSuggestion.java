@@ -66,7 +66,8 @@ public class AxolotlSuggestion {
 				.withEmoji(Emoji.fromUnicode("❌")));
 		buttons2.add(Button.danger(this.id.toString() + "-deny3", "Deny - Duplicate Suggestion")
 				.withEmoji(Emoji.fromUnicode("❌")));
-		buttons2.add(Button.danger(this.id.toString() + "-deny4", "Deny - Other").withEmoji(Emoji.fromUnicode("❌")));
+		buttons2.add(Button.danger(this.id.toString() + "-deny4", "Deny - Invalid Source").withEmoji(Emoji.fromUnicode("❌")));
+		buttons2.add(Button.danger(this.id.toString() + "-deny5", "Deny - Other").withEmoji(Emoji.fromUnicode("❌")));
 
 		rows.add(ActionRow.of(buttons1));
 		rows.add(ActionRow.of(buttons2));

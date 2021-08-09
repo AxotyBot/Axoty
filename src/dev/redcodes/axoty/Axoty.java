@@ -1,7 +1,6 @@
 package dev.redcodes.axoty;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.Instant;
@@ -22,7 +21,6 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -168,7 +166,7 @@ public class Axoty {
 						.addOptions(new OptionData(OptionType.USER, "user",
 								"Select the user you wan't to get information from", false)));
 				cmds.add(new CommandData("info", "Gives you information about the Bot."));
-				cmds.add(new CommandData("suggest", "Suggest a new Image or Fact for our Bot to show.").addOptions(
+				cmds.add(new CommandData("suggest", "Suggest a new Image or Meme for our Bot to show.").addOptions(
 						new OptionData(OptionType.STRING, "type", "The type of content you are suggesting.", true)
 								.addChoice("image", "image").addChoice("meme", "meme")
 //								.addChoice("fact", "fact")
