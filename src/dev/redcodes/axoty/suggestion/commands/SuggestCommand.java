@@ -3,7 +3,6 @@ package dev.redcodes.axoty.suggestion.commands;
 import java.awt.Color;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
@@ -42,11 +41,13 @@ public class SuggestCommand {
 		Document imgsDoc = imgs.find(Filters.eq("url", url.toString())).first();
 		MongoCollection<Document> memes = MongoDBHandler.getDatabase().getCollection("memes");
 		Document memesDoc = memes.find(Filters.eq("url", url.toString())).first();
+		MongoCollection<Document> vids = MongoDBHandler.getDatabase().getCollection("videos");
+		Document vidsDoc = vids.find(Filters.eq("url", url.toString())).first();
 		
 		
-		if(imgsDoc != null || memesDoc != null) {
+		if(imgsDoc != null || memesDoc != null || vidsDoc != null) {
 			EmbedBuilder error = new EmbedBuilder();
-			error.setTitle("This Image is already in our Dataset.");
+			error.setTitle("This content is already in our Dataset.");
 			error.setColor(Color.RED);
 			error.setFooter("© Axoty " + Axoty.year, Axoty.icon);
 			e.getHook().editOriginalEmbeds(error.build()).queue();

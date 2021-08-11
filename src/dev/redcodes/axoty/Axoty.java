@@ -35,7 +35,7 @@ public class Axoty {
 
 	public static String Version = "Pre-Release 1.0";
 
-	public static boolean Dev = false;
+	public static boolean Dev = true;
 
 	public static String year = "2021";
 
@@ -158,10 +158,12 @@ public class Axoty {
 				List<CommandData> cmds = new ArrayList<CommandData>();
 				cmds.add(new CommandData("axolotl", "Gives you a random Axolotl picture or Axolotl fact.").addOptions(
 						new OptionData(OptionType.STRING, "type", "Select a entry from the list above.", true)
-								.addChoice("image", "img").addChoice("meme", "meme").addChoice("fact", "fact")));
+								.addChoice("image", "img").addChoice("meme", "meme").addChoice("fact", "fact")
+								.addChoice("video", "vid")));
 				cmds.add(new CommandData("image", "Gives you a random Axolotl picture."));
 				cmds.add(new CommandData("meme", "Gives you a random Axolotl meme."));
 				cmds.add(new CommandData("fact", "Gives you a random Axolotl fact."));
+				cmds.add(new CommandData("video", "Gives you a random Axolotl video."));
 				cmds.add(new CommandData("user", "Gives you information about a specific User.")
 						.addOptions(new OptionData(OptionType.USER, "user",
 								"Select the user you wan't to get information from", false)));
@@ -170,14 +172,27 @@ public class Axoty {
 						new OptionData(OptionType.STRING, "type", "The type of content you are suggesting.", true)
 								.addChoice("image", "image").addChoice("meme", "meme")
 //								.addChoice("fact", "fact")
-								,
-						new OptionData(OptionType.STRING, "url", "The direct url of the content.", true),
+						, new OptionData(OptionType.STRING, "url", "The direct url of the content.", true),
 						new OptionData(OptionType.STRING, "source-url", "The source URL of the content.", true)));
 				cmds.add(new CommandData("api", "Gives you information about our API."));
 				cmds.add(new CommandData("support", "Gives you information about our Support Server."));
 
-				jda.updateCommands().addCommands(cmds).queue();
-				System.out.println("Commands published!");
+				if (Dev) {
+
+					List<Guild> guilds = new ArrayList<Guild>();
+
+					guilds.add(jda.getGuildById(580732235313971211L));
+
+					for (Guild guild : guilds) {
+						guild.updateCommands().addCommands(cmds).queue();
+					}
+
+				} else {
+
+					jda.updateCommands().addCommands(cmds).queue();
+					System.out.println("Commands published!");
+
+				}
 			}
 
 			Random rand = new Random();
@@ -188,7 +203,7 @@ public class Axoty {
 			for (Guild guild : jda.getGuilds()) {
 				users = users + guild.getMemberCount();
 			}
-			
+
 			String text = status[i].replace("%members%", String.valueOf(users)).replace("%version%", Version)
 					.replace("%guilds%", String.valueOf(jda.getGuilds().size()));
 

@@ -28,7 +28,7 @@ public class ImageMessage {
 		buttons.add(Button.success("img", "Get another Image").withEmoji(Emoji.fromUnicode("🖼")));
 		buttons.add(Button.success("meme", "Get a Meme").withEmoji(Emoji.fromUnicode("🎤")));
 		buttons.add(Button.success("fact", "Get a fact").withEmoji(Emoji.fromUnicode("📰")));
-		buttons.add(Button.success("video", "Get a video [SOON!]").withEmoji(Emoji.fromUnicode("🎥")).asDisabled());
+		buttons.add(Button.success("video", "Get a video").withEmoji(Emoji.fromUnicode("🎥")).asDisabled());
 
 		rows.add(ActionRow.of(buttons));
 		rows.add(ActionRow.of(Button.link(img.getSourceUrl().toString(), "Source").withEmoji(Emoji.fromUnicode("🌐"))));

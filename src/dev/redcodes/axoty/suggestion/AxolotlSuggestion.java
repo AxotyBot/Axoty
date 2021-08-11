@@ -66,7 +66,8 @@ public class AxolotlSuggestion {
 				.withEmoji(Emoji.fromUnicode("❌")));
 		buttons2.add(Button.danger(this.id.toString() + "-deny3", "Deny - Duplicate Suggestion")
 				.withEmoji(Emoji.fromUnicode("❌")));
-		buttons2.add(Button.danger(this.id.toString() + "-deny4", "Deny - Invalid Source").withEmoji(Emoji.fromUnicode("❌")));
+		buttons2.add(Button.danger(this.id.toString() + "-deny4", "Deny - Invalid Source")
+				.withEmoji(Emoji.fromUnicode("❌")));
 		buttons2.add(Button.danger(this.id.toString() + "-deny5", "Deny - Other").withEmoji(Emoji.fromUnicode("❌")));
 
 		rows.add(ActionRow.of(buttons1));
@@ -102,10 +103,15 @@ public class AxolotlSuggestion {
 
 	public void accept() {
 
-		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection(this.type.toString().toLowerCase() + "s");
-		Document doc = new Document("url", this.url.toString()).append("sourceUrl", this.sourceUrl.toString())
-				.append("suggester", this.user.getAsTag());
-		collection.insertOne(doc);
+		if (!this.type.equals(ContentType.VIDEO)) {
+
+			MongoCollection<Document> collection = MongoDBHandler.getDatabase()
+					.getCollection(this.type.toString().toLowerCase() + "s");
+			Document doc = new Document("url", this.url.toString()).append("sourceUrl", this.sourceUrl.toString())
+					.append("suggester", this.user.getAsTag());
+			collection.insertOne(doc);
+
+		}
 
 		MongoCollection<Document> suggestions = MongoDBHandler.getDatabase().getCollection("suggestions");
 		suggestions.deleteOne(Filters.eq("_id", this.id));
@@ -121,7 +127,7 @@ public class AxolotlSuggestion {
 		});
 
 	}
-	
+
 	public void deny(String reason) {
 
 		MongoCollection<Document> suggestions = MongoDBHandler.getDatabase().getCollection("suggestions");

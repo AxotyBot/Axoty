@@ -2,6 +2,7 @@ package dev.redcodes.axoty.handler;
 
 import dev.redcodes.axoty.general.image.ImageButton;
 import dev.redcodes.axoty.general.meme.MemeButton;
+import dev.redcodes.axoty.general.video.VideoButton;
 import dev.redcodes.axoty.general.fact.FactButton;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -30,6 +31,12 @@ public class ButtonHandler extends ListenerAdapter {
 			}).start();
 			break;
 
+		case "video":
+			new Thread(() -> {
+				VideoButton.onButtonClick(e);
+			}).start();
+			break;
+			
 		default:
 
 			break;

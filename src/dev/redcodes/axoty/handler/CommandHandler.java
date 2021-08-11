@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import dev.redcodes.axoty.general.fact.FactCommand;
 import dev.redcodes.axoty.general.image.ImageCommand;
 import dev.redcodes.axoty.general.meme.MemeCommand;
+import dev.redcodes.axoty.general.video.VideoCommand;
 import dev.redcodes.axoty.suggestion.commands.SuggestCommand;
 import dev.redcodes.axoty.util.ApiCommand;
 import dev.redcodes.axoty.util.InfoCommand;
@@ -65,7 +66,7 @@ public class CommandHandler extends ListenerAdapter {
 			
 		case "video":
 			new Thread(() -> {
-				
+				VideoCommand.onCommand(e);
 			}).start();
 			break;
 			

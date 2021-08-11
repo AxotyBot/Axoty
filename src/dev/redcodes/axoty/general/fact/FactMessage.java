@@ -28,7 +28,7 @@ public class FactMessage {
 		buttons.add(Button.success("fact", "Get another fact").withEmoji(Emoji.fromUnicode("📰")));
 		buttons.add(Button.success("img", "Get an Image").withEmoji(Emoji.fromUnicode("🖼")));
 		buttons.add(Button.success("meme", "Get a Meme").withEmoji(Emoji.fromUnicode("🎤")));
-		buttons.add(Button.success("video", "Get a video [SOON!]").withEmoji(Emoji.fromUnicode("🎥")).asDisabled());
+		buttons.add(Button.success("video", "Get a video").withEmoji(Emoji.fromUnicode("🎥")).asDisabled());
 
 		rows.add(ActionRow.of(buttons));
 		
