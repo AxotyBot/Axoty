@@ -16,6 +16,7 @@ public class AxotyUser {
 	int factsRequested;
 	int memesRequested;
 	int videosRequested;
+	int gifsRequested;
 
 	public AxotyUser(User user) {
 		this.user = user;
@@ -30,10 +31,11 @@ public class AxotyUser {
 			this.factsRequested = doc.getInteger("facts");
 			this.memesRequested = doc.getInteger("memes");
 			this.videosRequested = doc.getInteger("videos");
+			this.gifsRequested = doc.getInteger("gifs");
 
 		} else {
 			doc = new Document("_id", this.user.getId()).append("images", 0).append("facts", 0).append("memes", 0)
-					.append("videos", 0);
+					.append("videos", 0).append("gifs", 0);
 			collection.insertOne(doc);
 		}
 
@@ -101,6 +103,16 @@ public class AxotyUser {
 		this.factsRequested++;
 		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
 		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("facts", this.factsRequested));
+	}
+	
+	public void addGifsRequested() {
+		this.gifsRequested++;
+		MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
+		collection.updateOne(Filters.eq("_id", this.user.getId()), Updates.set("gifs", this.gifsRequested));
+	}
+	
+	public int getGifsRequested() {
+		return this.gifsRequested;
 	}
 
 	public User getUser() {

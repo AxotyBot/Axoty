@@ -6,10 +6,18 @@ import java.io.InputStreamReader;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 import javax.security.auth.login.LoginException;
+
+import org.bson.Document;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 
 import dev.redcodes.axoty.data.connection.MongoDBHandler;
 import dev.redcodes.axoty.handler.ButtonHandler;
@@ -27,13 +35,14 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
+@SuppressWarnings("unused")
 public class Axoty {
 
 	private Thread loop;
 
 	public static JDA jda;
 
-	public static String Version = "Pre-Release 1.0";
+	public static String Version = "Pre-Release 1.0.1";
 
 	public static boolean Dev = false;
 
@@ -112,6 +121,20 @@ public class Axoty {
 						System.exit(0);
 						break;
 
+					} else if(line.equalsIgnoreCase("userupdate")) {
+						
+						MongoCollection<Document> collection = MongoDBHandler.getDatabase().getCollection("users");
+						FindIterable<Document> iterable = collection.find();
+					    Iterator<Document> iterator = iterable.iterator();
+					    
+					    while(iterator.hasNext()) {
+					    	
+					    	Document doc = iterator.next();
+					    	
+					    	doc.append("gifs", 0);
+					    	collection.replaceOne(Filters.eq("_id", doc.getString("_id")), doc);
+					    }
+						
 					} else {
 						System.out.println("Use 'exit' or 'stop' to shutdown");
 					}
@@ -158,17 +181,18 @@ public class Axoty {
 				List<CommandData> cmds = new ArrayList<CommandData>();
 				cmds.add(new CommandData("axolotl", "Gives you a random Axolotl picture or Axolotl fact.").addOptions(
 						new OptionData(OptionType.STRING, "type", "Select a entry from the list above.", true)
-								.addChoice("image", "img").addChoice("meme", "meme").addChoice("fact", "fact")));
+								.addChoice("image", "img").addChoice("meme", "meme").addChoice("fact", "fact").addChoice("gif", "gif")));
 				cmds.add(new CommandData("image", "Gives you a random Axolotl picture."));
 				cmds.add(new CommandData("meme", "Gives you a random Axolotl meme."));
 				cmds.add(new CommandData("fact", "Gives you a random Axolotl fact."));
+				cmds.add(new CommandData("gif", "Gives you a random Axolotl gif."));
 				cmds.add(new CommandData("user", "Gives you information about a specific User.")
 						.addOptions(new OptionData(OptionType.USER, "user",
 								"Select the user you wan't to get information from", false)));
 				cmds.add(new CommandData("info", "Gives you information about the Bot."));
 				cmds.add(new CommandData("suggest", "Suggest a new Image or Meme for our Bot to show.").addOptions(
 						new OptionData(OptionType.STRING, "type", "The type of content you are suggesting.", true)
-								.addChoice("image", "image").addChoice("meme", "meme")
+								.addChoice("image", "image").addChoice("meme", "meme").addChoice("gif", "gif")
 //								.addChoice("fact", "fact")
 								,
 						new OptionData(OptionType.STRING, "url", "The direct url of the content.", true),
