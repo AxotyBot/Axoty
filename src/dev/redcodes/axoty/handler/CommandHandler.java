@@ -5,6 +5,7 @@ import dev.redcodes.axoty.general.UserCommand;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import dev.redcodes.axoty.general.fact.FactCommand;
+import dev.redcodes.axoty.general.gif.GifCommand;
 import dev.redcodes.axoty.general.image.ImageCommand;
 import dev.redcodes.axoty.general.meme.MemeCommand;
 import dev.redcodes.axoty.suggestion.commands.SuggestCommand;
@@ -78,6 +79,11 @@ public class CommandHandler extends ListenerAdapter {
 		case "api":
 			new Thread(() -> {
 				ApiCommand.onCommand(e);
+			}).start();
+			
+		case "gif":
+			new Thread(() -> {
+				GifCommand.onCommand(e);
 			}).start();
 		
 		

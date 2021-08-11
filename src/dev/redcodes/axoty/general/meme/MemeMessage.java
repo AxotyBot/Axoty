@@ -28,6 +28,7 @@ public class MemeMessage {
 		buttons.add(Button.success("meme", "Get another Meme").withEmoji(Emoji.fromUnicode("🎤")));
 		buttons.add(Button.success("img", "Get an Image").withEmoji(Emoji.fromUnicode("🖼")));
 		buttons.add(Button.success("fact", "Get a fact").withEmoji(Emoji.fromUnicode("📰")));
+		buttons.add(Button.success("gif", "Get a Gif").withEmoji(Emoji.fromUnicode("♾")));
 		buttons.add(Button.success("video", "Get a video [SOON!]").withEmoji(Emoji.fromUnicode("🎥")).asDisabled());
 
 		rows.add(ActionRow.of(buttons));

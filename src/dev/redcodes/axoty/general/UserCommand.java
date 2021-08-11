@@ -25,6 +25,7 @@ public class UserCommand {
 		msg.addField("Images Requested", String.valueOf(user.getImagesRequested()), true);
 		msg.addField("Facts Requested", String.valueOf(user.getFactsRequested()), true);
 		msg.addField("Memes Requested", String.valueOf(user.getMemesRequested()), true);
+		msg.addField("Gifs Requested", String.valueOf(user.getGifsRequested()), true);
 		msg.addField("Videos Requested [SOON!]", "*This feature will be added soon!*", true);
 		msg.setThumbnail(user.getUser().getAvatarUrl());
 		msg.setColor(0x33cc33);

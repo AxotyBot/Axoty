@@ -42,11 +42,13 @@ public class SuggestCommand {
 		Document imgsDoc = imgs.find(Filters.eq("url", url.toString())).first();
 		MongoCollection<Document> memes = MongoDBHandler.getDatabase().getCollection("memes");
 		Document memesDoc = memes.find(Filters.eq("url", url.toString())).first();
+		MongoCollection<Document> gifs = MongoDBHandler.getDatabase().getCollection("gifs");
+		Document gifsDoc = gifs.find(Filters.eq("url", url.toString())).first();
 		
 		
-		if(imgsDoc != null || memesDoc != null) {
+		if(imgsDoc != null || memesDoc != null || gifsDoc != null) {
 			EmbedBuilder error = new EmbedBuilder();
-			error.setTitle("This Image is already in our Dataset.");
+			error.setTitle("This content is already in our Dataset.");
 			error.setColor(Color.RED);
 			error.setFooter("© Axoty " + Axoty.year, Axoty.icon);
 			e.getHook().editOriginalEmbeds(error.build()).queue();

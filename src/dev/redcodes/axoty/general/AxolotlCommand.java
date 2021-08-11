@@ -2,6 +2,7 @@ package dev.redcodes.axoty.general;
 
 import dev.redcodes.axoty.data.users.AxotyUser;
 import dev.redcodes.axoty.general.fact.FactMessage;
+import dev.redcodes.axoty.general.gif.GifMessage;
 import dev.redcodes.axoty.general.image.ImageMessage;
 import dev.redcodes.axoty.general.meme.MemeMessage;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -32,6 +33,11 @@ public class AxolotlCommand {
 			
 			user.addMemesRequested();
 			
+		} else if(e.getOption("type").getAsString().equalsIgnoreCase("gif")) {
+			
+			e.getHook().editOriginal(GifMessage.getEmbed().build()).queue();
+			
+			user.addGifsRequested();
 		}
 
 	}
